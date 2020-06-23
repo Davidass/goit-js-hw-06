@@ -1,73 +1,14 @@
-class Car {
-  static getSpecs(car) {
-    return console.log(
-      `Max speed: ${car.maxSpeed}, speed: ${car.speed} ${car.isOn}, distance: ${car.distance} price: ${car.price}`,
-    );
-  }
+import users from './users.js'; // eslint-disable-line
 
-  constructor({ maxSpeed = 0, price = 0 }) {
-    this.speed = 0;
-    // eslint-disable-next-line no-underscore-dangle
-    this._price = price;
-    this.maxSpeed = maxSpeed;
-    this.isOn = false;
-    this.distance = 0;
-  }
+//Получить пользоваля (не массив) по email (поле email, он уникальный).
 
-  get price() {
-    // eslint-disable-next-line no-underscore-dangle
-    return this._price;
-  }
+const getUserWithEmail = (users, email) => {
+  const userEmail = users.find(function(user) {
+    return user.email === email;
+  });
 
-  set price(newPrice) {
-    // eslint-disable-next-line no-underscore-dangle
-    this._price = newPrice;
-  }
+  return userEmail;
+};
 
-  turnOn() {
-    this.isOn = true;
-  }
-
-  turnOff() {
-    this.isOn = false;
-    this.speed = 0;
-  }
-
-  accelerate(value) {
-    if (this.speed + value <= this.maxSpeed) {
-      this.speed += value;
-    }
-  }
-
-  decelerate(value) {
-    if (this.speed - value >= 0) {
-      this.speed -= value;
-    }
-  }
-
-  drive(hours) {
-    if (this.isOn) {
-      this.distance += hours * this.speed;
-    }
-  }
-}
-
-const mustang = new Car({ maxSpeed: 200, price: 2000 });
-
-mustang.turnOn();
-mustang.accelerate(50);
-mustang.drive(2);
-
-Car.getSpecs(mustang);
-// maxSpeed: 200, speed: 50, isOn: true, distance: 100, price: 2000
-
-mustang.decelerate(20);
-mustang.drive(1);
-mustang.turnOff();
-
-Car.getSpecs(mustang);
-// maxSpeed: 200, speed: 0, isOn: false, distance: 130, price: 2000
-
-console.log(mustang.price); // 2000
-mustang.price = 4000;
-console.log(mustang.price); // 4000
+console.log(getUserWithEmail(users, 'shereeanthony@kog.com')); // {объект пользователя Sheree Anthony}
+console.log(getUserWithEmail(users, 'elmahead@omatom.com')); // {объект пользователя Elma Head}
